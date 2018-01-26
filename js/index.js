@@ -1,9 +1,9 @@
 var WEATHER_API = 'https://api.openweathermap.org/data/2.5/weather';
 var APP_ID = '92469c62d282fdfc8719b751aa10c1d8';
 var WEATHER_ICON = 'https://openweathermap.org/img/w/';
-var RAIN_SONG = 'https://raw.githubusercontent.com/OfirLauber/OfirLauber.github.io/master/assets/rain.mp3'
 
 var current_unit = 'metric';
+var current_weather;
 
 function getLocation() {
   if (navigator.geolocation) {
@@ -34,6 +34,7 @@ function updateWeather(response) {
   var temperature = response.main.temp;
   var weather = response.weather.shift();
   var icon = '<img src="' + WEATHER_ICON + weather.icon + '.png">'
+  current_weather = weather.main;
 
   $('#location').html(city + ', ' + country);
   $('#temperature').html(temperature + '°');
@@ -41,7 +42,7 @@ function updateWeather(response) {
 }
 
 function playSong(event) {
-  var audio = new Audio(RAIN_SONG);
+  var audio = new Audio("assets/" + current_weather + ".mp3");
   audio.play();
 }
 
